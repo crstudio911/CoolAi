@@ -1,0 +1,2 @@
+window.getSession=function(){try{return JSON.parse(localStorage.getItem(COOLAI.SESSION_KEY))}catch(e){return null}};
+window.api=function(path,body){var s=getSession(),h={'Content-Type':'application/json'};if(s&&s.token)h.Authorization='Bearer '+s.token;return fetch(COOLAI.API_URL+'/api/'+path,{method:'POST',headers:h,body:JSON.stringify(body||{})}).then(function(r){return r.json().catch(function(){return{}}).then(function(j){j.status=r.status;return j})}).catch(function(){return{status:0,error:'تعذر الاتصال بالخادم'}})};

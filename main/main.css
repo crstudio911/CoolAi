@@ -87,3 +87,7 @@
 .cv{display:flex;flex-direction:column;gap:.4rem;padding-top:.8rem;border-top:1px solid var(--border)}
 .cv input{flex:1;min-width:0;padding:.55rem .8rem;background:var(--bg);border:1px solid var(--border);border-radius:8px;outline:none}.cv input:focus{border-color:var(--brand-h)}
 .srcs{display:flex;flex-wrap:wrap;gap:.4rem .8rem;margin-top:.8rem;padding-top:.6rem;border-top:1px dashed var(--border);font-size:.82rem;color:var(--muted)}.srcs a{color:var(--brand-h);max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.srcs a:hover{text-decoration:underline}
+
+.badge.pending{color:var(--gold)}
+.hrow .row{gap:.5rem;flex-wrap:nowrap}
+.cb pre,.cb code{user-select:text;-webkit-user-select:text}

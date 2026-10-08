@@ -48,17 +48,7 @@ var v=mkInv(r.invoice,usr());hist.unshift(v);hist=hist.slice(0,10);store.set('in
 $('widl').onclick=function(){if(last)png(last)};
 $('wicp').onclick=function(){if(last){navigator.clipboard.writeText(text(last));$('wicp').textContent='تم النسخ'}};
 $('wiok').onclick=function(){go(0);$('bn').value=100;$('bc').value='';off=0;calc();$('wicp').textContent='نسخ نص الفاتورة'};
-/* لوحة المشرف: مراجعة الفواتير وإضافة Coins */
-var ST={pending:'قيد المراجعة',paid:'مدفوعة',rejected:'مرفوضة'};
-function adm(){var l=$('al');l.textContent='جاري التحميل...';api('admlist').then(function(r){l.textContent='';if(!r.invoices)return l.appendChild(mk('p','soon',r.error||'تعذر التحميل'));if(!r.invoices.length)return l.appendChild(mk('p','soon','لا توجد طلبات'));
-r.invoices.forEach(function(v){var e=mk('div','ar'),h=mk('div','row'),b=mk('b',0,v.id),s=mk('span','badge '+v.status,ST[v.status]||v.status);h.style.justifyContent='space-between';h.appendChild(b);h.appendChild(s);e.appendChild(h);
-e.appendChild(mk('div',0,v.name+' · '+v.email));e.appendChild(mk('small',0,v.coins+' Coins · '+v.total+' جنيه'+(v.code?' · كود '+v.code:'')+' · '+v.at));
-if(v.status==='pending'){var a=mk('div','row'),ok=mk('button','btn primary','تأكيد وإضافة Coins'),no=mk('button','btn','رفض');
-ok.onclick=function(){if(confirm('إضافة '+v.coins+' Coins إلى '+v.email+'؟'))set(v.id,true)};no.onclick=function(){if(confirm('رفض الطلب؟'))set(v.id,false)};a.appendChild(ok);a.appendChild(no);e.appendChild(a)}
-l.appendChild(e)})})}
-function set(id,ok){api('admset',{id:id,ok:ok}).then(function(r){if(!r.ok)alert(r.error||'تعذر التنفيذ');adm()})}
-$('alr').onclick=adm;
-function sync(){paint();if(location.hash==='#admin'&&usr().admin)adm()}
+function sync(){paint()}
 addEventListener('hashchange',sync);addEventListener('userupdate',sync);
 store.get('invs:'+S.user.userId).then(function(h){hist=h||[];drawHis()});
 $('cvm').onclick=function(){$('cvn').value=usr().coins||''};

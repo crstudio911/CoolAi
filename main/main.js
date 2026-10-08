@@ -1,10 +1,10 @@
 (function(){
 var K=COOLAI.SESSION_KEY,$=function(i){return document.getElementById(i)},S=getSession();
 if(!S||!S.token){location.replace('../log/login.html');return}
-var u=S.user,V=['chat','posts','community','profile','wallet','admin'],TT={posts:'المنشورات',community:'المجتمع',wallet:'المحفظة',profile:'حسابي',admin:'لوحة المشرف'},
+var u=S.user,V=['chat','posts','community','profile','wallet'],TT={posts:'المنشورات',community:'المجتمع',wallet:'المحفظة',profile:'حسابي'},
 box=$('msgs'),chats=[],cur=null,mem=[],busy=false,imgMode=false,IMG_COST=6;
 function mk(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e}
-function hv(){var h=location.hash.slice(1);return V.indexOf(h)<0||(h==='admin'&&!u.admin)?'chat':h}
+function hv(){var h=location.hash.slice(1);return V.indexOf(h)<0?'chat':h}
 function ttl(){var h=hv();$('ttl').textContent=h==='chat'?(cur?cur.title:'CoolAi'):TT[h]}
 function side(o){$('side').classList.toggle('open',o);$('scrim').classList.toggle('on',o)}
 function route(){var h=hv();V.forEach(function(v){$('v-'+v).classList.toggle('on',v===h)});document.querySelectorAll('.nav a').forEach(function(a){a.classList.toggle('on',a.dataset.v===h)});ttl();drawHist();side(false)}
@@ -13,7 +13,7 @@ $('menu').onclick=function(){side(true)};$('sx').onclick=$('scrim').onclick=func
 function logout(){api('logout').then(function(){localStorage.removeItem(K);location.replace('../')})}
 $('out').onclick=logout;
 function time(t){return new Date(t).toLocaleTimeString('ar-EG',{hour:'numeric',minute:'2-digit',hour12:true})}
-function paint(){$('crv').textContent=u.credits;$('cr').classList.toggle('low',u.credits<=5);$('who').textContent=u.name;document.querySelector('.nav [data-v=admin]').hidden=!u.admin;S.user=u;localStorage.setItem(K,JSON.stringify(S))}
+function paint(){$('crv').textContent=u.credits;$('cr').classList.toggle('low',u.credits<=5);$('who').textContent=u.name;S.user=u;localStorage.setItem(K,JSON.stringify(S))}
 addEventListener('userupdate',function(e){u=e.detail;paint()});paint();
 $('imgm').onclick=function(){imgMode=!imgMode;this.classList.toggle('on',imgMode);$('ci').placeholder=imgMode?'صف الصورة اللي عايز ترسمها...':'اكتب رسالتك...';$('hint').textContent=imgMode?'وضع الرسم مفعّل: كل صورة بـ '+IMG_COST+' كريديت':'Enter للإرسال · Shift+Enter سطر جديد · رسم صورة = '+IMG_COST+' كريديت'};
 $('ci').oninput=function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,180)+'px'};
@@ -72,7 +72,7 @@ else if(ev.t==='tok'){txt+=ev.v;if(!live){st.end();live=add('bot','');live.mb=li
 else if(ev.t==='done'){credits(ev);if(pend)cancelAnimationFrame(pend);if(live){paintLive();srcs(live.mb,sr)}finish(txt)}
 else if(ev.t==='image'){st.end();credits(ev);add('bot','تم رسم الصورة.',ev.image);finish('تم رسم الصورة: '+t.slice(0,80),ev.image)}
 else if(ev.t==='facts'){if(ev.v&&ev.v.length){ev.v.forEach(function(f){if(mem.indexOf(f)<0)mem.push(f)});mem=mem.slice(-40);store.set('mem:'+u.userId,mem);drawMem()}}
-else if(ev.t==='fail'){console.error('[chat] request failed:',ev.status,ev.error);if(ev.status===401)return logout();fin=true;unlock();st.end();if(pend)cancelAnimationFrame(pend);if(live)live.remove();credits(ev);cur.messages.pop();add('bot',ev.error||'حصل خطأ، حاول تاني')}}
+else if(ev.t==='fail'){console.error('[chat] request failed:',ev.code||ev.status||'unknown',ev.detail||ev.error);if(ev.status===401)return logout();fin=true;unlock();st.end();if(pend)cancelAnimationFrame(pend);if(live)live.remove();credits(ev);cur.messages.pop();add('bot',ev.error||'حصل خطأ، حاول تاني')}}
 apiStream(isImg?'image':'chat',isImg?{prompt:t}:{messages:cur.messages.slice(-20).map(function(m){return{role:m.role,content:m.content}}),memory:mem,extract:n%3===0},onEv).then(function(){if(!fin){console.error('[chat] stream ended unexpectedly');onEv({t:'fail',error:'حصل خطأ، حاول تاني'})}})};
 $('ci').addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey&&!/Mobi|Android/i.test(navigator.userAgent)){e.preventDefault();$('cf').requestSubmit()}});
 })();

@@ -38,3 +38,15 @@ a{color:inherit;text-decoration:none}button,input,textarea,select{font:inherit;c
 @keyframes pop{40%{transform:scale(1.35)}}
 .rise{animation:rise .3s both}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.ticker{background:#000;color:#fff;overflow:hidden;white-space:nowrap;height:32px;display:flex;align-items:center;border-bottom:1px solid #1f1f1f;flex:none;position:relative;z-index:40}
+.tk-track{display:flex;width:max-content;direction:ltr;animation:tk 30s linear infinite}
+.ticker:hover .tk-track{animation-play-state:paused}
+.tk-grp{display:flex;align-items:center;flex:none}
+.tk-b,.tk-r{font-weight:700;font-size:.88rem;padding:0 .2rem}
+.tk-b{color:#3b82f6}.tk-r{color:#ef4444}
+.tk-dot{font-style:normal;color:#fff;opacity:.85;padding:0 1rem}
+@keyframes tk{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+.probadge{display:inline-flex;align-items:center;padding:.15rem .6rem;border-radius:99px;font:700 .75rem/1.4 'JetBrains Mono',monospace;letter-spacing:1px;color:#1a1300;background:linear-gradient(135deg,#f5d36b,#d29922);flex:none}
+.star{color:var(--gold);border-color:color-mix(in srgb,var(--gold) 55%,var(--border))}
+.star svg{fill:var(--gold);stroke:var(--gold);animation:twinkle 2.4s ease-in-out infinite}
+@keyframes twinkle{50%{transform:scale(1.18) rotate(8deg);opacity:.75}}

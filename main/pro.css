@@ -1,0 +1,22 @@
+body{min-height:100dvh}
+.pbar{display:flex;justify-content:space-between;align-items:center;padding:.7rem 1.2rem;border-bottom:1px solid var(--border)}
+.pwrap{max-width:540px;margin:0 auto;padding:1.4rem 1rem 3rem;display:flex;flex-direction:column;gap:1rem}
+.phero{text-align:center}
+.stars{display:flex;justify-content:center;gap:.4rem;margin-bottom:.4rem}
+.stars svg{width:30px;height:30px;fill:var(--gold);stroke:var(--gold);animation:twinkle 2.4s ease-in-out infinite}.stars svg:nth-child(2){width:40px;height:40px;animation-delay:.3s}.stars svg:nth-child(3){animation-delay:.6s}
+.phero h1{font-size:1.8rem;display:flex;justify-content:center;align-items:center;gap:.6rem}
+.sub{color:var(--muted);font-size:.92rem;margin:.3rem 0 1rem}
+.price{display:flex;justify-content:center;align-items:baseline;gap:.4rem}.price b{font-size:2.8rem;color:var(--gold);line-height:1.2}
+.lbl{color:var(--muted);font-size:.8rem}
+.feat{list-style:none;text-align:start;margin:1.2rem 0;display:flex;flex-direction:column;gap:.55rem}
+.feat li{display:flex;gap:.7rem;align-items:flex-start;font-size:.95rem}
+.feat li:before{content:'';width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 3px color-mix(in srgb,var(--gold) 25%,transparent);flex:none;margin-top:.55rem}
+.kvp{margin-top:.6rem;padding:.65rem .9rem;border-radius:10px;background:var(--bg);border:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:.7rem;flex-wrap:wrap;text-align:start}.kvp span{color:var(--muted);font-size:.85rem}.kvp i{font-style:normal}.kvp b{font-family:'JetBrains Mono',monospace;word-break:break-all}
+.phero .btn.primary{margin-top:1.2rem}
+.okbox{margin-top:1.2rem;padding:.8rem;border-radius:10px;border:1px solid var(--brand);color:var(--brand-h);background:color-mix(in srgb,var(--brand) 12%,transparent);font-weight:600}
+.chk{display:flex;gap:.5rem;align-items:center;margin:.9rem 0;font-size:.9rem}
+.warn{margin:.8rem 0;padding:.6rem .9rem;border-radius:8px;background:color-mix(in srgb,var(--gold) 12%,transparent);border:1px solid color-mix(in srgb,var(--gold) 40%,transparent);font-size:.88rem}
+.inv{border-style:dashed}.invrow{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;border-bottom:1px dashed var(--border);font-size:.92rem}.invrow span{color:var(--muted)}.invrow b{word-break:break-all;text-align:left}
+.badge{display:inline-block;padding:.1rem .65rem;border-radius:99px;font-size:.78rem;font-weight:600;color:var(--gold);border:1px solid color-mix(in srgb,var(--gold) 50%,transparent)}
+.err{margin-top:.5rem}
+@media(max-width:480px){.pbar{padding:.6rem .8rem}.price b{font-size:2.3rem}.phero h1{font-size:1.5rem}}

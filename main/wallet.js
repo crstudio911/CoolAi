@@ -17,29 +17,15 @@ $('wpi').textContent=C.INSTAPAY;$('wptd').textContent=C.TELDA;$('wpsp').href='ht
 $('wpic').onclick=function(){(navigator.clipboard?navigator.clipboard.writeText.bind(navigator.clipboard):function(){})(C.INSTAPAY);$('wpic').textContent='تم النسخ'};
 $('wpb').onclick=function(){go(0)};
 $('cp').onclick=function(){(navigator.clipboard?navigator.clipboard.writeText.bind(navigator.clipboard):function(){})(location.origin+location.pathname.replace('main/main.html','log/login.html')+'?ref='+usr().inviteCode);$('cp').textContent='تم نسخ رابط الدعوة'};
-function mkInv(i,u){var d=i.date||new Date(i.ts).toLocaleString('ar-EG',{day:'numeric',month:'long',year:'numeric',hour:'numeric',minute:'2-digit',hour12:true});
-if(i.type==='pro'){var pr=[['رقم الفاتورة',i.invoiceId],['التاريخ',d],['الاسم',u.name],['البريد',u.email],['النوع','اشتراك Pro'],['الإجمالي',i.total+' جنيه']];return{id:i.invoiceId,rows:pr,status:i.status||'pending',sum:'اشتراك Pro · '+i.total+' جنيه'}}
-var rows=[['رقم الفاتورة',i.invoiceId],['التاريخ',d],['الاسم',u.name],['البريد',u.email],['عدد Coins',i.coins],['سعر الـ Coin',(i.price||price)+' جنيه']];
-if(i.discount)rows.push(['كود الخصم ('+i.code+')','- '+i.discount+' جنيه']);rows.push(['الإجمالي',i.total+' جنيه']);return{id:i.invoiceId,rows:rows,status:i.status||'pending',sum:i.coins+' Coins · '+i.total+' جنيه'}}
-function text(v){return ['فاتورة CoolAi'].concat(v.rows.map(function(r){return r[0]+': '+r[1]}),[POL]).join('\n')}
-function show(v){last=v;var b=$('wirows');b.textContent='';v.rows.forEach(function(r){var e=mk('div','invrow');e.appendChild(mk('span',0,r[0]));e.appendChild(mk('b',0,r[1]));b.appendChild(e)});$('wipol').textContent=POL;
-$('wiwa').href='https://wa.me/'+C.SUPPORT_WA+'?text='+encodeURIComponent(text(v)+'\n\nمرفق سكرين التحويل.');go(2)}
-function png(v){
-var W=900,P=56,RH=60,H=240+v.rows.length*RH+150,c=document.createElement('canvas'),x=c.getContext('2d'),F='"IBM Plex Sans Arabic",Tahoma,sans-serif';c.width=W;c.height=H;
-function draw(im){
-x.fillStyle='#fff';x.fillRect(0,0,W,H);x.fillStyle='#0d1117';x.fillRect(0,0,W,12);
-if(im)x.drawImage(im,W-P-56,46,56,56);
-x.direction='rtl';x.textBaseline='middle';x.textAlign='right';
-x.fillStyle='#0d1117';x.font='700 40px '+F;x.fillText('فاتورة CoolAi',W-P-72,74);
-x.fillStyle=SC[v.status]||SC.pending;x.font='600 22px '+F;x.fillText('الحالة: '+(ST[v.status]||ST.pending),W-P,140);
-v.rows.forEach(function(r,k){var y=210+k*RH;x.strokeStyle='#d0d7de';x.beginPath();x.moveTo(P,y+RH/2);x.lineTo(W-P,y+RH/2);x.stroke();
-x.textAlign='right';x.fillStyle='#57606a';x.font='500 24px '+F;x.fillText(r[0],W-P,y);
-x.textAlign='left';x.fillStyle='#0d1117';x.font='600 26px '+F;x.fillText(String(r[1]),P,y)});
-x.textAlign='right';x.fillStyle='#57606a';x.font='500 20px '+F;x.fillText(POL,W-P,H-85);x.fillText('الدعم على واتساب: '+C.SUPPORT_TEXT,W-P,H-45);
-c.toBlob(function(b){var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='CoolAi-'+v.id+'.png';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},4000)})}
-var im=new Image();im.onload=function(){draw(im)};im.onerror=function(){draw(null)};
-(document.fonts?document.fonts.ready:Promise.resolve()).then(function(){im.src='../img/logo.png'})}
-function drawHis(){var l=$('wih');l.textContent='';$('w-his').hidden=!hist.length;hist.forEach(function(v){var r=mk('div','hrow'),a=mk('div'),z=mk('div','row'),b=mk('button','btn','تحميل'),g=mk('span','badge '+v.status,ST[v.status]||ST.pending);a.appendChild(mk('b',0,v.id));a.appendChild(mk('small',0,v.sum));a.appendChild(mk('small',0,v.rows[1][1]));b.onclick=function(){png(v)};z.appendChild(g);z.appendChild(b);r.appendChild(a);r.appendChild(z);l.appendChild(r)})}
+function mkInv(i,u){var T=INV.t,d=i.date||INV.date(i.ts),cur=' '+T('cur');
+if(i.type==='pro'){var pr=[[T('no'),i.invoiceId],[T('date'),d],[T('name'),u.name],[T('email'),u.email],[T('type'),T('proSub')],[T('duration'),T('month')],[T('total'),i.total+cur]];return{id:i.invoiceId,title:T('proTitle'),rows:pr,notes:[T('proNote')],status:i.status||'pending',sum:T('proSub')+' · '+i.total+cur,pro:1}}
+var rows=[[T('no'),i.invoiceId],[T('date'),d],[T('name'),u.name],[T('email'),u.email],[T('coins'),i.coins],[T('coinPrice'),(i.price||price)+cur]];
+if(i.discount)rows.push([T('code')+' ('+i.code+')','- '+i.discount+cur]);rows.push([T('total'),i.total+cur]);return{id:i.invoiceId,title:T('title'),rows:rows,notes:[T('policy')],status:i.status||'pending',sum:i.coins+' Coins · '+i.total+cur}}
+function text(v){return [v.title,INV.t('status')+': '+INV.t(v.status)].concat(v.rows.map(function(r){return r[0]+': '+r[1]}),v.notes).join('\n')}
+function show(v){last=v;var b=$('wirows');b.textContent='';b.classList.add('notranslate');b.dir=INV.rtl()?'rtl':'ltr';v.rows.forEach(function(r){var e=mk('div','invrow');e.appendChild(mk('span',0,r[0]));e.appendChild(mk('b',0,r[1]));b.appendChild(e)});$('wipol').textContent=v.notes.join(' ');$('wipol').classList.add('notranslate');
+$('wiwa').href='https://wa.me/'+C.SUPPORT_WA+'?text='+encodeURIComponent(text(v)+'\n\n'+INV.t('attach'));go(2)}
+function png(v){INV.png(v,{support:C.SUPPORT_TEXT,accent:v.pro?'#d29922':'#0d1117'})}
+function drawHis(){var l=$('wih');l.textContent='';$('w-his').hidden=!hist.length;hist.forEach(function(v){var r=mk('div','hrow'),a=mk('div'),z=mk('div','row'),b=mk('button','btn','تحميل'),g=mk('span','badge '+v.status,INV.t(v.status));a.appendChild(mk('b',0,v.id));a.appendChild(mk('small',0,v.sum));a.appendChild(mk('small',0,v.rows[1][1]));b.onclick=function(){png(v)};z.appendChild(g);z.appendChild(b);r.appendChild(a);r.appendChild(z);l.appendChild(r)})}
 function loadInv(){return api('invoices').then(function(r){if(r.invoices){hist=r.invoices.map(function(i){return mkInv(i,usr())});drawHis()}})}
 var lastR=0;
 function refresh(){if(location.hash!=='#wallet'||Date.now()-lastR<8000)return;lastR=Date.now();loadInv();api('me').then(function(r){if(r.user)dispatchEvent(new CustomEvent('userupdate',{detail:r.user}))})}
@@ -58,7 +44,7 @@ $('cvm').onclick=function(){$('cvn').value=usr().coins||''};
 $('cvb').onclick=function(){var v=Math.floor(+$('cvn').value);$('cve').textContent='';if(!(v>=1))return $('cve').textContent='اكتب عدد صحيح';if(v>(usr().coins||0))return $('cve').textContent='رصيد Coins مش كفاية';
 $('cvb').disabled=true;api('convert',{n:v}).then(function(r){$('cvb').disabled=false;if(!r.user){return $('cve').textContent=r.error||'تعذر التحويل'}
 dispatchEvent(new CustomEvent('userupdate',{detail:r.user}));$('cvn').value='';$('cve').textContent='تم التحويل';$('cve').classList.add('ok');setTimeout(function(){$('cve').textContent='';$('cve').classList.remove('ok')},3000)})};
-$('gcb').onclick=function(){var c=$('gc').value.trim(),e=$('gce');e.classList.remove('ok');if(c.length<2)return e.textContent='اكتب الكود';$('gcb').disabled=true;e.textContent='';api('redeem',{code:c}).then(function(r){$('gcb').disabled=false;if(!r.user)return e.textContent=r.error||'تعذر تفعيل الكود';dispatchEvent(new CustomEvent('userupdate',{detail:r.user}));$('gc').value='';e.classList.add('ok');e.textContent=[r.pro?'تمت ترقية حسابك إلى Pro':'',r.coins?'تمت إضافة '+r.coins+' Coins':''].filter(Boolean).join(' و ')})};
+$('gcb').onclick=function(){var c=$('gc').value.trim(),e=$('gce');e.classList.remove('ok');if(c.length<2)return e.textContent='اكتب الكود';$('gcb').disabled=true;e.textContent='';api('redeem',{code:c}).then(function(r){$('gcb').disabled=false;if(!r.user)return e.textContent=r.error||'تعذر تفعيل الكود';dispatchEvent(new CustomEvent('userupdate',{detail:r.user}));$('gc').value='';e.classList.add('ok');e.textContent=[r.pro?'تم تفعيل Pro لمدة '+(r.days||30)+' يوم'+(r.user&&r.user.proUntil?' (لحد '+INV.day(r.user.proUntil)+')':''):'',r.coins?'تمت إضافة '+r.coins+' Coins':''].filter(Boolean).join(' و ')})};
 $('gc').onkeydown=function(ev){if(ev.key==='Enter'){ev.preventDefault();$('gcb').click()}};
 promo();calc();setTimeout(sync,800);
 })();

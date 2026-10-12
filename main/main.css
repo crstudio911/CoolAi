@@ -34,7 +34,7 @@ body{height:100dvh;display:flex;flex-direction:column;overflow:hidden}
 .cc{border:0;background:none;color:var(--muted);cursor:pointer;font:inherit}.cc:hover{color:var(--text)}
 .cb pre{padding:.8rem 1rem;overflow-x:auto;font:.85rem/1.6 'JetBrains Mono',monospace}
 .status .mb{color:var(--muted);font-size:.9rem}
-.dots i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--brand-h);margin-inline:1px;animation:b 1.2s infinite}.dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
+.dots i{display:inline-block;flex:none;width:6px;height:6px;min-width:6px;aspect-ratio:1;border-radius:50%;background:var(--brand-h);margin-inline:1px;animation:b 1.2s infinite}.dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
 .gen{display:block;max-width:min(100%,512px);border-radius:10px;margin-top:.6rem;border:1px solid var(--border)}.dl{display:inline-block;margin-top:.4rem;font-size:.82rem;color:var(--brand-h)}
 .empty{margin:auto;text-align:center;display:flex;flex-direction:column;align-items:center;gap:.6rem;padding:2rem 0}
 .elogo{width:64px;height:64px;border-radius:16px}.empty h2{font-size:1.5rem}.empty p{color:var(--muted);max-width:420px}
@@ -106,7 +106,7 @@ body{height:100dvh;display:flex;flex-direction:column;overflow:hidden}
 .as.run{color:var(--text)}
 .as .ck{width:16px;height:16px;border-radius:50%;display:inline-grid;place-items:center;font-style:normal;font-size:.62rem;font-weight:700;flex:none;background:color-mix(in srgb,var(--brand) 30%,var(--surface));color:var(--brand-h)}
 .as.bad .ck{background:color-mix(in srgb,var(--gold) 30%,var(--surface));color:var(--gold)}
-.as .dots{width:16px;display:inline-flex;justify-content:center;flex:none}
+.as .dots{min-width:16px;display:inline-flex;align-items:center;justify-content:center;gap:2px;flex:none}.as .dots i{margin:0}
 .act{margin-bottom:.7rem;border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:.4rem .8rem}
 .act summary{cursor:pointer;color:var(--muted);font-size:.82rem;list-style:none;user-select:none}
 .act summary::-webkit-details-marker{display:none}
@@ -189,3 +189,18 @@ body{height:100dvh;display:flex;flex-direction:column;overflow:hidden}
 .send.stop:hover{border-color:var(--danger);background:var(--surface2);color:var(--danger)}
 .send.stop svg{display:none}
 .send.stop::before{content:'';width:12px;height:12px;border-radius:3px;background:currentColor}
+.md>*+*{margin-top:.6rem}.md+.cb,.cb+.md{margin-top:.6rem}
+.lnk{display:inline-flex;align-items:center;gap:.3rem;max-width:100%;vertical-align:bottom;padding:.05rem .45rem .05rem .35rem;margin:0 .1rem;border-radius:999px;background:color-mix(in srgb,var(--brand) 12%,var(--surface2));border:1px solid var(--border);color:var(--brand-h);font-size:.9em;text-decoration:none;transition:border-color .15s}
+.lnk:hover{border-color:var(--brand-h)}.lnk span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:260px;direction:auto;unicode-bidi:plaintext}
+.lnk .fav{width:14px;height:14px;border-radius:3px;flex:none;background:var(--surface)}
+.srcs .lnk span{max-width:180px}
+.mh{font-weight:700;line-height:1.5}.mh.h1{font-size:1.25rem}.mh.h2{font-size:1.12rem}.mh.h3,.mh.h4{font-size:1rem}
+.mdl{margin-bottom:0;padding-inline-start:1.4rem;line-height:1.8}.mdl li+li{margin-top:.15rem}
+.mhr{border:0;border-top:1px solid var(--border);margin-bottom:.2rem}
+.tbw{max-width:100%;overflow-x:auto;border:1px solid var(--border);border-radius:10px}
+.mdt{border-collapse:collapse;width:100%;font-size:.88rem;min-width:max-content}
+.mdt th,.mdt td{padding:.5rem .75rem;border-bottom:1px solid var(--border);text-align:start;vertical-align:top}
+.mdt th{background:var(--surface2);font-weight:700}.mdt tr:last-child td{border-bottom:0}.mdt tbody tr:nth-child(even) td{background:color-mix(in srgb,var(--surface2) 45%,transparent)}
+.choices{display:flex;flex-wrap:wrap;gap:.45rem}
+.choice{font:inherit;font-size:.88rem;padding:.45rem .9rem;border-radius:999px;border:1px solid var(--brand-h);background:color-mix(in srgb,var(--brand) 10%,transparent);color:var(--text);cursor:pointer;transition:background .15s,transform .1s}
+.choice:hover{background:color-mix(in srgb,var(--brand) 25%,transparent)}.choice:active{transform:scale(.97)}

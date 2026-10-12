@@ -1,0 +1,1 @@
+addEventListener('message',function(e){if(e.source!==parent||!e.data||typeof e.data.coolPreview!=='string')return;var h=e.data.coolPreview;if(!/<html|<body|<!doctype/i.test(h))h='<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body>'+h+'</body></html>';document.open();document.write(h);document.close()});

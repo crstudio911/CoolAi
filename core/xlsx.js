@@ -43,7 +43,7 @@ files.unshift({name:'[Content_Types].xml',data:ct},{name:'_rels/.rels',data:'<?x
 return zip(files)}
 function fname(n){n=String(n||'').replace(/[\\\/:*?"<>|\u0000-\u001F]/g,' ').trim().slice(0,80)||('coolai-'+Date.now());if(!/\.xlsx$/i.test(n))n=n.replace(/\.(xls|csv)$/i,'')+'.xlsx';return n}
 function download(name,sheets){var b=write(sheets),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=fname(name);document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},30000)}
-function inflate(u){if(typeof DecompressionStream!=='function')return Promise.reject('متصفحك قديم ومش بيقدر يفتح ملفات Excel. حدّث المتصفح أو احفظ الملف CSV.');
+function inflate(u){if(typeof DecompressionStream!=='function')return Promise.reject('متصفحك قديم ولا يستطيع فتح ملفات Excel. حدّث المتصفح أو احفظ الملف بصيغة CSV.');
 var ds=new DecompressionStream('deflate-raw'),w=ds.writable.getWriter();w.write(u);w.close();return new Response(ds.readable).arrayBuffer().then(function(b){return new Uint8Array(b)})}
 function unzip(buf){var u=new Uint8Array(buf),v=new DataView(buf),e=-1;for(var i=u.length-22;i>=Math.max(0,u.length-70000);i--){if(v.getUint32(i,true)===0x06054b50){e=i;break}}
 if(e<0)throw 'bad';var n=v.getUint16(e+10,true),p=v.getUint32(e+16,true),out={};
@@ -55,8 +55,8 @@ function tags(el,n){return el?[].slice.call(el.getElementsByTagNameNS('*',n)):[]
 function txt(el){return tags(el,'t').map(function(t){return t.textContent}).join('')}
 var DATEF={14:1,15:1,16:1,17:1,18:1,19:1,20:1,21:1,22:1,45:1,46:1,47:1};
 function serial(n){var ms=Math.round((n-25569)*864e5),d=new Date(ms);if(isNaN(d))return String(n);var iso=d.toISOString();return n%1?iso.slice(0,16).replace('T',' '):iso.slice(0,10)}
-function read(buf,maxRows){maxRows=maxRows||3000;var z;try{z=unzip(buf)}catch(e){return Promise.reject('الملف ده مش ملف Excel سليم (xlsx).')}
-if(!z['xl/workbook.xml'])return Promise.reject('الملف ده مش ملف Excel سليم (xlsx).');
+function read(buf,maxRows){maxRows=maxRows||3000;var z;try{z=unzip(buf)}catch(e){return Promise.reject('هذا الملف ليس ملف Excel سليمًا (xlsx).')}
+if(!z['xl/workbook.xml'])return Promise.reject('هذا الملف ليس ملف Excel سليمًا (xlsx).');
 return Promise.all([get(z,'xl/workbook.xml'),get(z,'xl/_rels/workbook.xml.rels'),get(z,'xl/sharedStrings.xml'),get(z,'xl/styles.xml')]).then(function(a){
 var wb=xml(a[0]),rels={},ss=[],dateXf={};
 tags(xml(a[1]||'<r/>'),'Relationship').forEach(function(r){var t=r.getAttribute('Target')||'';t=t.charAt(0)==='/'?t.slice(1):'xl/'+t.replace(/^\.\//,'');rels[r.getAttribute('Id')]=t});

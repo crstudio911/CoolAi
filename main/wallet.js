@@ -4,7 +4,7 @@ if(!S||!S.token||!$('w-buy'))return;
 var ST={pending:'قيد المراجعة',paid:'تم الدفع',rejected:'مرفوضة'},SC={pending:'#9a6700',paid:'#1a7f37',rejected:'#cf222e'},price=1,min=10,max=10000,off=0,PK=[50,100,250,500,1000],last=null,hist=[],POL='سياسة الاسترجاع: لا يمكن الاسترجاع بعد إضافة Coins في حسابك';
 function usr(){var s=getSession();return s?s.user:S.user}
 function mk(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e}
-function paint(){var u=usr();$('wc').textContent=u.coins||0;$('wk').textContent=u.credits;$('ic').textContent=u.inviteCode||'';$('wfree').textContent=u.freeRe&&u.credits<1?'كريديت مجاني بيتجدد '+new Date(u.freeRe).toLocaleTimeString('ar-EG',{hour:'numeric',minute:'2-digit',hour12:true}):''}
+function paint(){var u=usr();$('wc').textContent=u.coins||0;$('wk').textContent=u.credits;$('ic').textContent=u.inviteCode||'';$('wfree').textContent=u.freeRe&&u.credits<1?'كريديت مجاني يتجدد '+new Date(u.freeRe).toLocaleTimeString('ar-EG',{hour:'numeric',minute:'2-digit',hour12:true}):''}
 function n(){return Math.floor(+$('bn').value)||0}
 function total(){return Math.max(0,n()*price-off)}
 function calc(){$('bq').textContent=n();$('bt').textContent=total();$('bd').textContent='- '+off+' جنيه';$('bdr').hidden=!off;document.querySelectorAll('.pkb').forEach(function(b){b.classList.toggle('on',+b.dataset.v===n())})}
@@ -41,10 +41,10 @@ function sync(){paint()}
 addEventListener('hashchange',sync);addEventListener('hashchange',refresh);addEventListener('userupdate',sync);
 loadInv();refresh();
 $('cvm').onclick=function(){$('cvn').value=usr().coins||''};
-$('cvb').onclick=function(){var v=Math.floor(+$('cvn').value);$('cve').textContent='';if(!(v>=1))return $('cve').textContent='اكتب عدد صحيح';if(v>(usr().coins||0))return $('cve').textContent='رصيد Coins مش كفاية';
+$('cvb').onclick=function(){var v=Math.floor(+$('cvn').value);$('cve').textContent='';if(!(v>=1))return $('cve').textContent='اكتب عدد صحيح';if(v>(usr().coins||0))return $('cve').textContent='رصيد Coins غير كافٍ';
 $('cvb').disabled=true;api('convert',{n:v}).then(function(r){$('cvb').disabled=false;if(!r.user){return $('cve').textContent=r.error||'تعذر التحويل'}
 dispatchEvent(new CustomEvent('userupdate',{detail:r.user}));$('cvn').value='';$('cve').textContent='تم التحويل';$('cve').classList.add('ok');setTimeout(function(){$('cve').textContent='';$('cve').classList.remove('ok')},3000)})};
-$('gcb').onclick=function(){var c=$('gc').value.trim(),e=$('gce');e.classList.remove('ok');if(c.length<2)return e.textContent='اكتب الكود';$('gcb').disabled=true;e.textContent='';api('redeem',{code:c}).then(function(r){$('gcb').disabled=false;if(!r.user)return e.textContent=r.error||'تعذر تفعيل الكود';dispatchEvent(new CustomEvent('userupdate',{detail:r.user}));$('gc').value='';e.classList.add('ok');e.textContent=[r.pro?'تم تفعيل Pro لمدة '+(r.days||30)+' يوم'+(r.user&&r.user.proUntil?' (لحد '+INV.day(r.user.proUntil)+')':''):'',r.coins?'تمت إضافة '+r.coins+' Coins':''].filter(Boolean).join(' و ')})};
+$('gcb').onclick=function(){var c=$('gc').value.trim(),e=$('gce');e.classList.remove('ok');if(c.length<2)return e.textContent='اكتب الكود';$('gcb').disabled=true;e.textContent='';api('redeem',{code:c}).then(function(r){$('gcb').disabled=false;if(!r.user)return e.textContent=r.error||'تعذر تفعيل الكود';dispatchEvent(new CustomEvent('userupdate',{detail:r.user}));$('gc').value='';e.classList.add('ok');e.textContent=[r.pro?'تم تفعيل Pro لمدة '+(r.days||30)+' يوم'+(r.user&&r.user.proUntil?' (حتى '+INV.day(r.user.proUntil)+')':''):'',r.coins?'تمت إضافة '+r.coins+' Coins':''].filter(Boolean).join(' و ')})};
 $('gc').onkeydown=function(ev){if(ev.key==='Enter'){ev.preventDefault();$('gcb').click()}};
 promo();calc();setTimeout(sync,800);
 })();

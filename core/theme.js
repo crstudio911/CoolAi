@@ -8,3 +8,4 @@ var last=0;d.addEventListener('touchend',function(e){var n=Date.now();if(n-last<
 })();
 function toggleTheme(){var h=document.documentElement,t=h.getAttribute('data-theme')==='github'?'vscode':'github';h.setAttribute('data-theme',t);localStorage.setItem('coolai_theme',t)}
 document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-tt]');if(b)toggleTheme()});
+(function(){var t=0;document.addEventListener('gesturestart',function(e){e.preventDefault()},{passive:false});document.addEventListener('touchmove',function(e){if(e.touches&&e.touches.length>1)e.preventDefault()},{passive:false});document.addEventListener('touchend',function(e){var n=Date.now();if(n-t<300&&!(e.target.closest&&e.target.closest('input,textarea,select,[contenteditable]')))e.preventDefault();t=n},{passive:false})})();

@@ -283,3 +283,22 @@ body.busy .uacts [aria-label^="تعديل"],body.busy .brn .ab{opacity:.3;pointe
 .pthumb{margin-top:10px;max-width:220px;border-radius:10px;overflow:hidden;border:1px solid var(--line,#2a2f45);box-shadow:0 6px 22px rgba(0,0,0,.25)}
 .pthumb img{display:block;width:100%;height:auto}
 @media(max-width:480px){.pthumb{max-width:150px}}
+.pjbar{display:flex;gap:.4rem;align-items:center;margin:.6rem 0 .2rem}
+.pjbar select{flex:1;min-width:0;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:.45rem .6rem;font:inherit;font-size:.88rem}
+#mic.rec{color:var(--danger,#e5484d);border-color:currentColor;animation:micp 1.2s ease-in-out infinite}
+#mic.wait{opacity:.6;cursor:progress}
+@keyframes micp{50%{box-shadow:0 0 0 6px color-mix(in srgb,currentColor 18%,transparent)}}
+.ab.spk.on{color:var(--brand,#5a5cff)}
+.speaking{background:color-mix(in srgb,var(--brand,#5a5cff) 14%,transparent);border-radius:8px;transition:background .2s}
+.nexts{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.7rem}
+.nexts .chip{text-align:start;white-space:normal;line-height:1.5}
+.dlg{margin:auto;inset:0;position:fixed;border:1px solid var(--border);border-radius:16px;background:var(--surface);color:var(--text);padding:0;width:min(92vw,460px);max-height:86vh}
+.dlg::backdrop{background:rgba(0,0,0,.55)}
+.dlg-in{padding:1.1rem;display:flex;flex-direction:column;gap:.7rem;overflow:auto;max-height:86vh}
+.dlg-in h3{margin:0;font-size:1.05rem}.dlg-in p{margin:0;color:var(--muted);font-size:.88rem;line-height:1.7}
+.dlg-in input,.dlg-in textarea{width:100%;box-sizing:border-box;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:.55rem .7rem;font:inherit}
+.dlg-in textarea{min-height:120px;resize:vertical}
+.dlg-row{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:flex-end}
+.pjl{display:flex;flex-direction:column;gap:.4rem}.pji{display:flex;gap:.4rem;align-items:center;justify-content:space-between;border:1px solid var(--border);border-radius:10px;padding:.45rem .6rem}.pji span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+body:not(.v-chat) .chatonly{display:none}
+@media(max-width:480px){.bar .row{gap:.25rem}.bar .icon-btn{width:34px;height:34px}}

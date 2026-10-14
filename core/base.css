@@ -80,3 +80,12 @@ img,svg,video,canvas,iframe{max-width:100%}
 .trnote{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);z-index:300;max-width:calc(100% - 2rem);padding:.6rem 1rem;border-radius:10px;background:var(--surface2);border:1px solid var(--border);color:var(--text);font-size:.85rem;box-shadow:0 8px 24px rgba(0,0,0,.35)}
 [dir=ltr] .nav a.on{box-shadow:inset 3px 0 0 var(--brand-h)}
 [dir=ltr] .trb{padding:0 .7rem 0 .2rem}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;touch-action:manipulation}
+html,body{max-width:100%;overflow-x:hidden}
+img,video,canvas,svg{max-width:100%}
+.mb{overflow-wrap:anywhere}
+.mb pre,.mb table,.mb .mxd{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.mb table{display:block}
+.cut-note{margin-top:.6rem;padding:.45rem .7rem;border-radius:10px;border:1px dashed var(--border);color:var(--muted);font-size:.85rem;white-space:normal}
+@media(max-width:760px){input,textarea,select{font-size:16px!important}button,a{-webkit-tap-highlight-color:transparent}}
+@supports(padding:max(0px)){body{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}}

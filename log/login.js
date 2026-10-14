@@ -16,6 +16,6 @@ if(KEY&&!tok())return $('err').textContent='أكمل التحقق أولاً';
 $('go').disabled=true;$('err').textContent='';
 api(mode,mode==='login'?{email:em,password:pw,cf:tok()}:{email:em,password:pw,name:nm,invite:$('invite').value.trim(),cf:tok()}).then(function(r){
 $('go').disabled=false;if(KEY&&wid!==null)turnstile.reset(wid);
-if(!r.token)return $('err').textContent=r.error||'حصل خطأ، حاول تاني';
+if(!r.token)return $('err').textContent=r.error||'حدث خطأ، حاول مرة أخرى';
 localStorage.setItem(K,JSON.stringify({token:r.token,user:r.user}));location.replace('../main/main.html#chat')})};
 })();

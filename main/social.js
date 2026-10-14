@@ -18,7 +18,7 @@ function paint(){c.textContent=p.likes;b.classList.toggle('on',!!likes[p.postId]
 b.onclick=function(){var on=!likes[p.postId];if(on)likes[p.postId]=1;else delete likes[p.postId];p.likes=Math.max(0,p.likes+(on?1:-1));paint();store.set('likes:'+uid,likes);
 api('like',{postId:p.postId,delta:on?1:-1}).then(function(r){if(r.likes!==undefined){p.likes=r.likes;paint()}})};
 d.appendChild(b);if(p.uid===uid){var x=mk('button','like','حذف');x.style.marginInlineStart='.5rem';x.onclick=function(){if(!confirm('حذف المنشور؟'))return;api('delpost',{postId:p.postId}).then(function(r){if(r.ok){posts=posts.filter(function(q){return q!==p});draw()}})};d.appendChild(x)}return d}
-function draw(){var l=$('pl');l.textContent='';if(!posts.length){l.appendChild(mk('p','soon','لسه مفيش منشورات. كن أول واحد!'));return}posts.forEach(function(p){l.appendChild(card(p))})}
+function draw(){var l=$('pl');l.textContent='';if(!posts.length){l.appendChild(mk('p','soon','لا توجد منشورات بعد. كن أول من ينشر!'));return}posts.forEach(function(p){l.appendChild(card(p))})}
 function load(){var l=$('pl');if(!loaded){l.textContent='';l.appendChild(mk('div','skel'));l.appendChild(mk('div','skel'))}
 api('posts').then(function(r){loaded=true;posts=r.posts||[];draw()})}
 function shrink(f){return new Promise(function(res,rej){var i=new Image(),u=URL.createObjectURL(f);i.onload=function(){var s=Math.min(1,1280/Math.max(i.width,i.height)),c=document.createElement('canvas');c.width=Math.round(i.width*s);c.height=Math.round(i.height*s);c.getContext('2d').drawImage(i,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c.toDataURL('image/jpeg',.8))};i.onerror=rej;i.src=u})}

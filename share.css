@@ -1,0 +1,14 @@
+.shp{min-height:100vh}
+.sh-h{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem 1rem;background:var(--bg);border-bottom:1px solid var(--border)}
+.sh-b{display:flex;align-items:center;gap:.5rem;font-weight:700;color:var(--text);text-decoration:none}.sh-b img{width:28px;height:28px}
+.sh-m{max-width:780px;margin:0 auto;padding:1.4rem 1rem 4rem}
+.sh-m h1{font-size:1.35rem;margin:0 0 .3rem;overflow-wrap:anywhere}.sh-n{color:var(--muted);margin:0 0 1.4rem;font-size:.9rem}
+.sm{margin:0 0 1.1rem;display:flex}.sm.u{justify-content:flex-start}.sm.a{justify-content:flex-end}
+.sm .b{max-width:88%;padding:.7rem 1rem;border-radius:14px;border:1px solid var(--border);line-height:1.8;overflow-wrap:anywhere;min-width:0}
+.sm.u .b{background:var(--surface2)}.sm.a .b{background:var(--surface);max-width:100%;width:100%}
+.sm .b p{margin:.3rem 0}.sm .b h3,.sm .b h4{margin:.7rem 0 .3rem}
+.sm pre{direction:ltr;text-align:left;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:.7rem;overflow-x:auto;font-size:.85rem;white-space:pre}
+.sm code{font-family:ui-monospace,Consolas,monospace}
+.sm table{display:block;max-width:100%;overflow-x:auto;border-collapse:collapse;margin:.5rem 0}.sm td,.sm th{border:1px solid var(--border);padding:.35rem .6rem}
+.sm .mxd{overflow-x:auto;direction:ltr;margin:.5rem 0}
+@media(max-width:600px){.sm .b{max-width:100%}.sh-m h1{font-size:1.15rem}}

@@ -50,7 +50,7 @@ if(r){if(!py&&/;\s*$/.test(c)&&res.text[r.e]===';')c=c.replace(/;\s*$/,'');res.t
 function isHtml(c,l){return/^(html|htm|svg)$/.test(l||'')||/^\s*(<!doctype html|<html|<svg)/i.test(c||'')}
 function render(){var el=$('cvcode'),pre=el.parentNode,follow=S.live&&pre.scrollHeight-pre.scrollTop-pre.clientHeight<80,L=S.code.split('\n'),chg={};(S.chg||[]).forEach(function(r){for(var i=r[0];i<=r[1];i++)chg[i]=1});
 var h=new Array(L.length);for(var i=0;i<L.length;i++)h[i]='<span class="ln'+(chg[i+1]?' chg':'')+'">'+(esc(L[i])||' ')+'</span>';el.innerHTML=h.join('');
-if(follow)pre.scrollTop=pre.scrollHeight;$('cvs').textContent=(S.live?'بيكتب... ':'')+L.length+' سطر'+(S.note?' · '+S.note:'');$('cv').classList.toggle('live',S.live);
+if(follow)pre.scrollTop=pre.scrollHeight;$('cvs').textContent=(S.live?'يكتب... ':'')+L.length+' سطر'+(S.note?' · '+S.note:'');$('cv').classList.toggle('live',S.live);
 var hv=isHtml(S.code,S.lang);$('cvtv').hidden=!hv;if(!hv&&S.tab==='view')tab('code')}
 function preview(){var f=$('cvf');f.onload=function(){try{f.contentWindow.postMessage({coolPreview:S.code},'*')}catch(e){}};f.src=PREV+'?t='+Date.now()}
 function tab(t){S.tab=t;document.querySelectorAll('#cv [data-cv]').forEach(function(b){b.classList.toggle('on',b.dataset.cv===t)});$('cvp').hidden=t!=='code';$('cvf').hidden=t!=='view';if(t==='view')preview()}
@@ -69,12 +69,12 @@ $('cvr').onclick=function(){if(S.tab==='view')preview()}}
 function segText(seg){if(seg.t==='edit')return seg.pairs.map(function(p,i){return'@@ تعديل '+(i+1)+'\n'+p.find.split('\n').map(function(x){return'- '+x}).join('\n')+'\n'+p.rep.split('\n').map(function(x){return'+ '+x}).join('\n')}).join('\n\n')||seg.raw;return seg.code}
 function segTitle(seg){if(seg.t==='edit')return'تعديل'+(seg.file?' · '+seg.file:'');if(seg.t==='func')return'الدالة '+(seg.name||'')+(seg.file?' · '+seg.file:'');return seg.file||(seg.lang?seg.lang.toUpperCase():'كود')}
 function card(seg,key){var c=mk('div','acard notranslate'+(seg.open?' live':'')),ic=mk('div','aic',seg.t==='code'?'</>':seg.t==='edit'?'±':'ƒ'),m=mk('div','ameta'),n=segText(seg).split('\n').length;
-m.appendChild(mk('b',0,segTitle(seg)));m.appendChild(mk('small',0,seg.open?'بيكتب...':(seg.t==='edit'?seg.pairs.length+' مكان':n+' سطر')));c.appendChild(ic);c.appendChild(m);
+m.appendChild(mk('b',0,segTitle(seg)));m.appendChild(mk('small',0,seg.open?'يكتب...':(seg.t==='edit'?seg.pairs.length+' مكان':n+' سطر')));c.appendChild(ic);c.appendChild(m);
 var o=mk('button','btn','فتح');o.type='button';o.onclick=function(){show({code:segText(seg),lang:seg.t==='edit'?'diff':seg.lang||seg.t,name:seg.t==='code'?seg.file:'',title:segTitle(seg),live:false,key:key})};c.appendChild(o);c.onclick=function(e){if(e.target===c||e.target.parentNode===c&&e.target!==o)o.click()};
 if(seg.t==='edit'&&!seg.open){var d=mk('div','adiff');seg.pairs.slice(0,3).forEach(function(p){p.find.split('\n').slice(0,6).forEach(function(x){d.appendChild(mk('div','dl-',x||' '))});p.rep.split('\n').slice(0,6).forEach(function(x){d.appendChild(mk('div','dl+',x||' '))})});var w=mk('div','awrap');w.appendChild(c);w.appendChild(d);return w}
 return c}
 function stream(seg,key){if(S.closedBy===key)return;show({code:segText(seg),lang:seg.t==='edit'?'diff':seg.lang||'',name:seg.t==='code'?seg.file:'',title:segTitle(seg),live:seg.open,key:key})}
-function resultCard(f,load,res){var c=mk('div','rcard notranslate'),ic=mk('div','aic ok','+'),m=mk('div','ameta');m.appendChild(mk('b',0,f.name));m.appendChild(mk('small',0,'نسخة معدلة · '+(f.lines||0)+' سطر'+(res&&res.fail?' · '+res.fail+' تعديل ما اتركبش':'')));c.appendChild(ic);c.appendChild(m);
+function resultCard(f,load,res){var c=mk('div','rcard notranslate'),ic=mk('div','aic ok','+'),m=mk('div','ameta');m.appendChild(mk('b',0,f.name));m.appendChild(mk('small',0,'نسخة معدلة · '+(f.lines||0)+' سطر'+(res&&res.fail?' · '+res.fail+' تعديل لم يُطبَّق':'')));c.appendChild(ic);c.appendChild(m);
 function get(cb){load(f.id).then(function(x){if(x&&x.text!=null)cb(x)})}
 var b1=mk('button','btn','فتح');b1.type='button';b1.onclick=function(){get(function(x){show({code:x.text,lang:x.lang,name:x.name,title:x.name,chg:x.ranges,note:'الأسطر المعدلة متعلّمة',line:x.ranges&&x.ranges[0]&&x.ranges[0][0]})})};
 var b2=mk('button','btn primary','تحميل');b2.type='button';b2.onclick=function(){get(function(x){download(x.name,x.text)})};

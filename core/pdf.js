@@ -1,4 +1,3 @@
-// CoolAi PDF maker — no libraries, no eval. Pages are drawn on canvas (so Arabic shaping is perfect) then packed as JPEG pages in a real PDF.
 (function(){
 var W=1240,H=1754,M=96,CW=W-2*M,AR=/[\u0590-\u08FF\uFB1D-\uFEFC]/,FONT="'Segoe UI','Noto Sans Arabic','Tahoma','Arial',sans-serif",MAXP=40,MAXT=200000;
 function str(v){return v==null?'':String(v).replace(/[\u0000-\u0008\u000B-\u001F\u202A-\u202E\u2066-\u2069]/g,'').slice(0,MAXT)}

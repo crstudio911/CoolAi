@@ -74,7 +74,7 @@ var o=mk('button','btn','فتح');o.type='button';o.onclick=function(){show({cod
 if(seg.t==='edit'&&!seg.open){var d=mk('div','adiff');seg.pairs.slice(0,3).forEach(function(p){p.find.split('\n').slice(0,6).forEach(function(x){d.appendChild(mk('div','dl-',x||' '))});p.rep.split('\n').slice(0,6).forEach(function(x){d.appendChild(mk('div','dl+',x||' '))})});var w=mk('div','awrap');w.appendChild(c);w.appendChild(d);return w}
 return c}
 function stream(seg,key){if(S.closedBy===key)return;show({code:segText(seg),lang:seg.t==='edit'?'diff':seg.lang||'',name:seg.t==='code'?seg.file:'',title:segTitle(seg),live:seg.open,key:key})}
-function resultCard(f,load,res){var c=mk('div','rcard notranslate'),ic=mk('div','aic ok','✓'),m=mk('div','ameta');m.appendChild(mk('b',0,f.name));m.appendChild(mk('small',0,'نسخة معدلة · '+(f.lines||0)+' سطر'+(res&&res.fail?' · '+res.fail+' تعديل ما اتركبش':'')));c.appendChild(ic);c.appendChild(m);
+function resultCard(f,load,res){var c=mk('div','rcard notranslate'),ic=mk('div','aic ok','+'),m=mk('div','ameta');m.appendChild(mk('b',0,f.name));m.appendChild(mk('small',0,'نسخة معدلة · '+(f.lines||0)+' سطر'+(res&&res.fail?' · '+res.fail+' تعديل ما اتركبش':'')));c.appendChild(ic);c.appendChild(m);
 function get(cb){load(f.id).then(function(x){if(x&&x.text!=null)cb(x)})}
 var b1=mk('button','btn','فتح');b1.type='button';b1.onclick=function(){get(function(x){show({code:x.text,lang:x.lang,name:x.name,title:x.name,chg:x.ranges,note:'الأسطر المعدلة متعلّمة',line:x.ranges&&x.ranges[0]&&x.ranges[0][0]})})};
 var b2=mk('button','btn primary','تحميل');b2.type='button';b2.onclick=function(){get(function(x){download(x.name,x.text)})};

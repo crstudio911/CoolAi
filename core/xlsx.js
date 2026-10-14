@@ -6,7 +6,6 @@ var BAD=/[\u0000-\u0008\u000B\u000C\u000E-\u001F\uFFFE\uFFFF]/g;
 function esc(s){return String(s).replace(BAD,'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 function col(n){var s='';n++;while(n>0){var m=(n-1)%26;s=String.fromCharCode(65+m)+s;n=Math.floor((n-1)/26)}return s}
 function colIdx(r){var m=/^([A-Z]+)/.exec(r||''),n=0;if(!m)return -1;for(var i=0;i<m[1].length;i++)n=n*26+(m[1].charCodeAt(i)-64);return n-1}
-/* ---------- writing ---------- */
 function zip(files){var parts=[],cd=[],off=0;
 files.forEach(function(f){var nm=te.encode(f.name),d=typeof f.data==='string'?te.encode(f.data):f.data,c=crc32(d),h=new Uint8Array(30+nm.length),v=new DataView(h.buffer);
 v.setUint32(0,0x04034b50,true);v.setUint16(4,20,true);v.setUint16(6,0x0800,true);v.setUint16(8,0,true);v.setUint16(10,0,true);v.setUint16(12,0x21,true);v.setUint32(14,c,true);v.setUint32(18,d.length,true);v.setUint32(22,d.length,true);v.setUint16(26,nm.length,true);v.setUint16(28,0,true);h.set(nm,30);parts.push(h,d);
@@ -44,7 +43,6 @@ files.unshift({name:'[Content_Types].xml',data:ct},{name:'_rels/.rels',data:'<?x
 return zip(files)}
 function fname(n){n=String(n||'').replace(/[\\\/:*?"<>|\u0000-\u001F]/g,' ').trim().slice(0,80)||('coolai-'+Date.now());if(!/\.xlsx$/i.test(n))n=n.replace(/\.(xls|csv)$/i,'')+'.xlsx';return n}
 function download(name,sheets){var b=write(sheets),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=fname(name);document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},30000)}
-/* ---------- reading ---------- */
 function inflate(u){if(typeof DecompressionStream!=='function')return Promise.reject('متصفحك قديم ومش بيقدر يفتح ملفات Excel. حدّث المتصفح أو احفظ الملف CSV.');
 var ds=new DecompressionStream('deflate-raw'),w=ds.writable.getWriter();w.write(u);w.close();return new Response(ds.readable).arrayBuffer().then(function(b){return new Uint8Array(b)})}
 function unzip(buf){var u=new Uint8Array(buf),v=new DataView(buf),e=-1;for(var i=u.length-22;i>=Math.max(0,u.length-70000);i--){if(v.getUint32(i,true)===0x06054b50){e=i;break}}

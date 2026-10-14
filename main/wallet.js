@@ -24,7 +24,7 @@ if(i.discount)rows.push([T('code')+' ('+i.code+')','- '+i.discount+cur]);rows.pu
 function text(v){return [v.title,INV.t('status')+': '+INV.t(v.status)].concat(v.rows.map(function(r){return r[0]+': '+r[1]}),v.notes).join('\n')}
 function show(v){last=v;var b=$('wirows');b.textContent='';b.classList.add('notranslate');b.dir=INV.rtl()?'rtl':'ltr';v.rows.forEach(function(r){var e=mk('div','invrow');e.appendChild(mk('span',0,r[0]));e.appendChild(mk('b',0,r[1]));b.appendChild(e)});$('wipol').textContent=v.notes.join(' ');$('wipol').classList.add('notranslate');
 $('wiwa').href='https://wa.me/'+C.SUPPORT_WA+'?text='+encodeURIComponent(text(v)+'\n\n'+INV.t('attach'));go(2)}
-function png(v){INV.png(v,{support:C.SUPPORT_TEXT,accent:v.pro?'#d29922':'#0d1117'})}
+function png(v){INV.png(v,{support:C.SUPPORT_TEXT,accent:v.pro?'#d29922':'#4b5dff'})}
 function drawHis(){var l=$('wih');l.textContent='';$('w-his').hidden=!hist.length;hist.forEach(function(v){var r=mk('div','hrow'),a=mk('div'),z=mk('div','row'),b=mk('button','btn','تحميل'),g=mk('span','badge '+v.status,INV.t(v.status));a.appendChild(mk('b',0,v.id));a.appendChild(mk('small',0,v.sum));a.appendChild(mk('small',0,v.rows[1][1]));b.onclick=function(){png(v)};z.appendChild(g);z.appendChild(b);r.appendChild(a);r.appendChild(z);l.appendChild(r)})}
 function loadInv(){return api('invoices').then(function(r){if(r.invoices){hist=r.invoices.map(function(i){return mkInv(i,usr())});drawHis()}})}
 var lastR=0;

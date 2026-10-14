@@ -13,7 +13,7 @@ var nl=s.indexOf('\n'),head=nl>-1?s.slice(0,nl):s,code=nl>-1?s.slice(nl+1):'',o=
 if(o.lang==='edit'||o.lang==='patch'||/<{3,}\s*FIND/.test(code))out.push({t:'edit',file:o.file,pairs:pairs(code),raw:code,open:open,lang:extOf(o.file)});
 else if(o.lang==='replace'||o.fn)out.push({t:'func',file:o.file,name:o.fn,code:code,open:open,lang:o.lang==='replace'?extOf(o.file):o.lang});
 else out.push({t:'code',lang:o.lang,file:o.file,code:code,open:open})});return out}
-function big(seg){return seg.t!=='code'||seg.code.split('\n').length>=12}
+function big(seg){return seg.t!=='code'||(!/^(chart|graph|network|xlsx|excel)$/.test(seg.lang||'')&&seg.code.split('\n').length>=12)}
 function skipStr(s,i){var q=s[i],j=i+1;while(j<s.length){var c=s[j];if(c==='\\'){j+=2;continue}if(q==='`'&&c==='$'&&s[j+1]==='{'){j=scanBlock(s,j+1)+1;continue}if(c===q)return j+1;if(q!=='`'&&c==='\n')return j;j++}return j}
 function regexOk(s,i){var k=i-1;while(k>=0&&/\s/.test(s[k]))k--;return k<0||/[(,=:\[!&|?{};+\-*%<>~^]/.test(s[k])||/\b(return|typeof|case|in|of)$/.test(s.slice(Math.max(0,k-6),k+1))}
 function skipRe(s,i){var j=i+1,cls=false;while(j<s.length){var c=s[j];if(c==='\\'){j+=2;continue}if(c==='\n')return j;if(c==='[')cls=true;else if(c===']')cls=false;else if(c==='/'&&!cls){j++;while(/[a-z]/i.test(s[j]||''))j++;return j}j++}return j}

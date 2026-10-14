@@ -1,7 +1,7 @@
 window.cfiles=(function(){
 var $=function(i){return document.getElementById(i)},uid='',list=[],att=[],onErr=function(){};
 var TXT=/\.(txt|md|markdown|csv|tsv|log|json|jsonc|xml|yaml|yml|toml|ini|cfg|conf|env|html|htm|css|scss|sass|less|js|mjs|cjs|jsx|ts|tsx|vue|svelte|py|rb|php|java|kt|kts|swift|c|h|cpp|cc|hpp|cs|go|rs|dart|lua|r|sql|sh|bash|zsh|bat|cmd|ps1|gs|gradle|properties|pl|scala|asm|vb|m|ex|exs|erl|hs|clj|graphql|gql|proto|dockerfile|makefile|gitignore|htaccess|svg|srt|vtt|rtf|tex)$/i;
-var IMG=/^image\/(png|jpeg|jpg|webp|gif|bmp)$/i,MAXT=1500000,MAXI=15000000,KEEP=60;
+var IMG=/^image\/(png|jpeg|jpg|webp|gif|bmp)$/i,MAXT=1500000,MAXI=15000000,MAXX=10000000,KEEP=60;
 function mk(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e}
 function size(n){return n<1024?n+' B':n<1048576?(n/1024).toFixed(1)+' KB':(n/1048576).toFixed(1)+' MB'}
 function ext(n){var i=n.lastIndexOf('.');return i>-1?n.slice(i+1).toLowerCase():''}
@@ -10,7 +10,9 @@ function hash(s){var h=5381,i=0,n=Math.min(s.length,200000);for(;i<n;i++)h=(h*33
 function shrink(file){return new Promise(function(res,rej){var u=URL.createObjectURL(file),im=new Image();im.onload=function(){var m=1280,w=im.naturalWidth,h=im.naturalHeight,k=Math.min(1,m/Math.max(w,h)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(w*k));c.height=Math.max(1,Math.round(h*k));var x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);res({data:c.toDataURL('image/jpeg',.85),w:c.width,h:c.height})};im.onerror=function(){URL.revokeObjectURL(u);rej(new Error('img'))};im.src=u})}
 function read(file){
 if(IMG.test(file.type)){if(file.size>MAXI)return Promise.reject('الصورة '+file.name+' أكبر من 15 ميجا');return shrink(file).then(function(r){return{id:crypto.randomUUID(),uid:uid,name:file.name,kind:'image',type:'image/jpeg',size:file.size,data:r.data,w:r.w,h:r.h,added:Date.now(),used:Date.now(),sig:hash(r.data)}}).catch(function(){return Promise.reject('مقدرتش أفتح الصورة '+file.name)})}
-if(!isText(file))return Promise.reject('نوع الملف '+file.name+' مش مدعوم. Cool بيقرأ الملفات النصية والبرمجية والصور.');
+if(/\.(xlsx|xlsm)$/i.test(file.name)){if(file.size>MAXX)return Promise.reject('ملف Excel '+file.name+' أكبر من 10 ميجا');if(!window.cxlsx)return Promise.reject('مقدرتش أفتح ملف Excel');return file.arrayBuffer().then(function(b){return cxlsx.read(b)}).then(function(bk){var t=cxlsx.toText(bk);if(!t.trim())return Promise.reject('ملف Excel '+file.name+' فاضي');return{id:crypto.randomUUID(),uid:uid,name:file.name,kind:'text',type:'text/csv',lang:'xlsx',size:file.size,lines:t.split('\n').length,text:t,added:Date.now(),used:Date.now(),sig:hash(t)}},function(e){return Promise.reject(typeof e==='string'?e:'مقدرتش أقرأ ملف Excel '+file.name)})}
+if(/\.(xls|xlsb|ods|numbers)$/i.test(file.name))return Promise.reject('الملف '+file.name+' بصيغة قديمة. افتحه في Excel واحفظه xlsx أو CSV وارفعه تاني.');
+if(!isText(file))return Promise.reject('نوع الملف '+file.name+' مش مدعوم. Cool بيقرأ الملفات النصية والبرمجية وملفات Excel والصور.');
 if(file.size>MAXT)return Promise.reject('الملف '+file.name+' أكبر من 1.5 ميجا');
 return file.text().then(function(t){if(t.indexOf('\u0000')>-1)return Promise.reject('الملف '+file.name+' مش ملف نصي');t=t.replace(/\r\n?/g,'\n');return{id:crypto.randomUUID(),uid:uid,name:file.name,kind:'text',type:file.type||'text/plain',lang:ext(file.name),size:file.size,lines:t.split('\n').length,text:t,added:Date.now(),used:Date.now(),sig:hash(t)}})}
 function save(f){var o=list.filter(function(x){return x.sig===f.sig&&x.name===f.name})[0];if(o){o.used=Date.now();store.putFile(o);return o}list.unshift(f);store.putFile(f);var extra=list.slice(KEEP);list=list.slice(0,KEEP);extra.forEach(function(x){store.delFile(x.id)});return f}

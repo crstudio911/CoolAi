@@ -1,1 +1,1 @@
-window.COOLAI={API_URL:'https://coolai-api.uuuuouuuuuuouuu.workers.dev',SESSION_KEY:'coolai_session',TURNSTILE_SITE_KEY:'',SUPPORT_WA:'201274277202',SUPPORT_TEXT:'+20 127 427 7202',INSTAPAY:'01558143429',TELDA:'mahmoudmomajed'};
+window.COOLAI={API_URL:'https://coolai-api.uuuuouuuuuuouuu.workers.dev',API_URLS:['https://coolai-api.uuuuouuuuuuouuu.workers.dev','https://coolai-api-2.7oka12345678910.workers.dev'],SESSION_KEY:'coolai_session',TURNSTILE_SITE_KEY:'',SUPPORT_WA:'201274277202',SUPPORT_TEXT:'+20 127 427 7202',INSTAPAY:'01558143429',TELDA:'mahmoudmomajed'};

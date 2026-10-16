@@ -17,7 +17,7 @@ function canBuy(){if(!MX&&S.user.role==='max'&&active())return false;return !act
 function step(n){$('pay').hidden=n!==1;$('inv').hidden=n!==2;$('go').hidden=n!==0||!canBuy()}
 function paint(){var pro=active(),left=pro&&S.user.proUntil?Math.max(0,Math.ceil((S.user.proUntil-Date.now())/864e5)):0;$('st-pro').hidden=!pro;if(pro)$('st-pro').textContent='حسابك '+(S.user.role==='max'?'Max':'Pro')+' حتى '+INV.day(S.user.proUntil)+' (فاضل '+left+' يوم).'+(!MX&&S.user.role==='max'?' باقة Max تشمل كل مميزات Pro.':canBuy()?' يمكنك التجديد الآن وستُضاف 30 يومًا إلى مدتك.':' يُتاح التجديد في آخر 3 أيام.');$('go').hidden=!canBuy();$('go').textContent=pro?'جدّد الاشتراك (شهر)':'اشترك الآن (شهر)'}
 api('me').then(function(r){if(r.status===401){localStorage.removeItem(K);location.replace('../log/login.html');return}if(r.user){S.user=r.user;localStorage.setItem(K,JSON.stringify(S))}
-return PUB.then(function(p){if(CMP)return compare(p);info=p.pro||{price:0,credits:0,refill:25,hours:12,features:[]};if(MX){var m=p.max||{};info={price:m.price||1000,credits:m.credits||250,refill:m.refill||70,hours:info.hours,features:MAXF(m.cost||70)}}
+return PUB.then(function(p){if(CMP)return compare(p);info=p.pro||{price:0,credits:0,refill:25,hours:12,features:[]};if(MX){var m=p.max||{};info={price:m.price||1000,credits:m.credits||250,refill:m.refill||70,hours:info.hours,features:(m.features&&m.features.length?m.features:MAXF(m.cost||70))}}
 $('pp').textContent=info.price;$('pcr').textContent=info.credits+' كريديت';$('prf').textContent=info.refill+' كريديت';$('ph').textContent=info.hours;
 var l=$('pf');l.textContent='';(info.features||[]).forEach(function(f){l.appendChild(mk('li',0,f))});
 $('pw').hidden=false;paint()})});

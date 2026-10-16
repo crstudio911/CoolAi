@@ -66,7 +66,7 @@ mark.cdoubt{background:none;color:inherit;text-decoration:underline wavy var(--g
 .mnote b{color:var(--gold);font-size:.76rem}
 #mistc .pgo{background:none;color:var(--danger);border-color:var(--danger)}
 .tunef{display:flex;flex-direction:column;gap:6px;margin:0 0 12px}
-.tunef select,.tunef textarea{width:100%;padding:8px 10px;border-radius:10px;border:1px solid var(--line,#8884);background:var(--bg2,transparent);color:inherit;font:inherit;resize:vertical}
+.tunef select,.tunef textarea{width:100%;padding:8px 10px;border-radius:10px;border:1px solid var(--line,#8884);background:var(--surface);color:inherit;font:inherit;resize:vertical}
 .tunec{display:flex;align-items:center;gap:8px;margin:0 0 10px;cursor:pointer}
 .tadd{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
 .tadd input{flex:1 1 160px;min-width:0;padding:8px 10px;border-radius:10px;border:1px solid var(--line,#8884);background:transparent;color:inherit;font:inherit}

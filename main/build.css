@@ -42,3 +42,20 @@ body.bs-lock{overflow:hidden}
 .bs-l{display:flex;white-space:pre}.bs-l i{font-style:normal;width:48px;flex:none;text-align:right;padding-right:14px;opacity:.4;user-select:none}
 .bs-img{max-width:100%;display:block;margin:16px auto;border-radius:10px}
 @media(max-width:760px){.bs-main{flex-direction:column}.bs-side{width:auto;max-height:28vh;border-inline-end:0;border-bottom:1px solid var(--border)}.bs-dl span{display:none}.bs-acts .bs-dev[data-d=tab]{display:none}.bs-top{gap:8px;padding:8px}}
+.bs-blank{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:24px;color:var(--muted)}
+.bs-blank[hidden]{display:none}.bs-blank svg{width:46px;height:46px;fill:none;stroke:var(--brand);stroke-width:1.6}.bs-blank b{color:var(--text);font-size:1.05rem}.bs-blank p{max-width:340px;margin:0;line-height:1.8}
+.bs-stage{position:relative}.bs-frame[hidden]{display:none}.bs-dl:disabled{opacity:.5;cursor:not-allowed}
+.bstudio.docked{position:relative;inset:auto;z-index:1;height:100%;border-inline-start:1px solid var(--border)}
+.bstudio.docked .bs-xb{display:none}
+.bstudio.docked.bs-full{position:fixed;inset:0;z-index:9999;border:0}
+.bstudio.docked.bs-full .bs-xb{display:grid}.bstudio.docked.bs-full .bs-fsb{display:none}
+.bstudio.docked .bs-side{width:190px}
+.bdock{display:none}
+.bdtog{display:none}
+@media(min-width:1001px){body.build-on #v-chat.on{flex-direction:column;padding-inline-end:min(58%,calc(100% - 380px));position:relative}body.build-on .bdock{display:block;position:absolute;top:0;bottom:0;inset-inline-end:0;width:min(58%,calc(100% - 380px))}}
+@media(max-width:1000px){body.build-on .bdtog{display:inline-flex;position:fixed;z-index:60;bottom:calc(92px + env(safe-area-inset-bottom));inset-inline-start:12px;box-shadow:0 6px 20px #0006}body.build-on.bd-open .bdock{display:block;position:fixed;inset:0;z-index:50;background:var(--bg)}body.build-on.bd-open .bdtog{bottom:calc(14px + env(safe-area-inset-bottom))}body.build-on.bd-open .bstudio.docked{border:0}}
+.bneed{border:1px solid var(--brand);background:var(--surface2);border-radius:14px;padding:14px;margin:0 0 12px;display:flex;flex-direction:column;gap:10px}
+.bn-h{display:flex;gap:10px;align-items:flex-start}.bn-h svg{width:24px;height:24px;flex:none;fill:none;stroke:var(--brand);stroke-width:1.8}.bn-h b{display:block}.bn-h small{color:var(--muted)}
+.bn-f{display:flex;flex-direction:column;gap:4px}.bn-f span{font-weight:600}.bn-f small{color:var(--muted);font-size:.78rem}
+.bn-f input{width:100%;padding:8px 10px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);font:13px/1.4 ui-monospace,Consolas,monospace}
+.bn-note{margin:0;font-size:.78rem;color:var(--muted);line-height:1.7}.bn-st{font-size:.85rem;color:var(--brand)}

@@ -20,3 +20,10 @@ body{min-height:100dvh}
 .badge{display:inline-block;padding:.1rem .65rem;border-radius:99px;font-size:.78rem;font-weight:600;color:var(--gold);border:1px solid color-mix(in srgb,var(--gold) 50%,transparent)}
 .err{margin-top:.5rem}
 @media(max-width:480px){.pbar{padding:.6rem .8rem}.price b{font-size:2.3rem}.phero h1{font-size:1.5rem}}
+.pwrap.cmpw{max-width:980px}
+.cmph{text-align:center}.cmph h1{margin:0 0 .3rem}
+.plans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;align-items:stretch}
+.plan{position:relative;display:flex;flex-direction:column;gap:.6rem}.plan h2{margin:0;display:flex;align-items:center;gap:.4rem}
+.plan .feat{flex:1}.plan-tag{position:absolute;top:12px;inset-inline-end:12px;font-size:.72rem;font-weight:700;padding:2px 10px;border-radius:999px;background:var(--text);color:var(--bg)}
+.plan-max{border-color:var(--text)}
+@media(max-width:760px){.plans{grid-template-columns:1fr}}

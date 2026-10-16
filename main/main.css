@@ -306,3 +306,8 @@ body:not(.v-chat) .chatonly{display:none}
 .dlg-x{position:absolute;top:8px;inset-inline-end:8px;width:32px;height:32px;border:0;border-radius:50%;background:transparent;color:inherit;font-size:22px;line-height:1;cursor:pointer;opacity:.7}
 .dlg-x:hover{opacity:1;background:rgba(127,127,127,.15)}
 .dlg-in h3{padding-inline-end:36px}
+.mmenu{position:fixed;z-index:80;width:240px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:12px;padding:6px;box-shadow:0 14px 40px #0007;display:flex;flex-direction:column;gap:2px}
+.mmi{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:start;border:0;background:none;color:inherit;padding:8px 10px;border-radius:8px;cursor:pointer;font:inherit}
+.mmi b{font:700 .8rem/1.2 'JetBrains Mono',monospace;letter-spacing:.5px}.mmi small{color:var(--muted);font-size:.75rem}
+.mmi:hover,.mmi:focus-visible{background:var(--surface2)}.mmi.on{background:var(--surface2);outline:1px solid var(--brand)}.mmi.locked{opacity:.6}.mmi.locked b::after{content:' 🔒'}
+.expg{display:grid!important;grid-template-columns:repeat(2,1fr);gap:8px}.expg button{width:100%}@media(max-width:420px){.expg{grid-template-columns:1fr}}

@@ -311,3 +311,10 @@ body:not(.v-chat) .chatonly{display:none}
 .mmi b{font:700 .8rem/1.2 'JetBrains Mono',monospace;letter-spacing:.5px}.mmi small{color:var(--muted);font-size:.75rem}
 .mmi:hover,.mmi:focus-visible{background:var(--surface2)}.mmi.on{background:var(--surface2);outline:1px solid var(--brand)}.mmi.locked{opacity:.6}.mmi.locked b::after{content:' 🔒'}
 .expg{display:grid!important;grid-template-columns:repeat(2,1fr);gap:8px}.expg button{width:100%}@media(max-width:420px){.expg{grid-template-columns:1fr}}
+@media(max-width:760px){.bar{flex-wrap:wrap;row-gap:.35rem;min-height:0;padding:.45rem .7rem}.bar .menu{order:1}.bar .ttl{order:2;flex:1 1 0;min-width:0;white-space:normal;overflow:visible;text-overflow:clip;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.35;font-size:.95rem;word-break:break-word}.bar .row{order:3;flex:1 0 100%;justify-content:flex-end;gap:.5rem;padding-top:.35rem;border-top:1px solid var(--border)}.bar .row .icon-btn{width:38px;height:38px}.bar .row #cr{margin-inline-end:auto}#cr span{display:inline}}
+@media(max-width:380px){.bar .row{gap:.35rem}.bar .row .icon-btn{width:36px;height:36px}}
+html[data-max] .icon-btn.on,html[data-max] .icon-btn.on svg,html[data-max] .tabs button.on,html[data-max] .askm button.on,html[data-max] .um,html[data-max] .tag,html[data-max] .send svg{color:#000;stroke:currentColor}
+html[data-max] .m.me .mb,html[data-max] .msg.me .mb{color:var(--text)}
+html[data-max] .mmi.on,html[data-max] .pkb.on,html[data-max] .chip.on,html[data-max] .choice.on,html[data-max] .nav a.on,html[data-max] .hi.on,html[data-max] .bs-tab.on,html[data-max] .cvtabs button.on{background:#1d1d1d;color:#fff}
+html[data-max] .mode.pro{color:#000}
+@media(max-width:420px){#cr span{display:none}.bar .row{gap:.3rem}.bar .row .icon-btn{width:34px;height:34px}}

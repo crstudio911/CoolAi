@@ -237,7 +237,7 @@ if(ev.t==='stage'){if(ev.v==='thinking'){if(!st.has('think'))st.step('think','ي
 else if(ev.t==='searched'){if(!retried){var pv=String(ev.p||'').split('+').map(function(x){return SP[x]||x}).join('، ');st.done('search','بحث عن «'+String(ev.q||'').slice(0,60)+'»: '+(ev.n?'وجد '+ev.n+' مصدر'+(pv?' ('+pv+')':''):'لا توجد نتائج، سيجيب بحذر'),!ev.n)}}
 else if(ev.t==='viewed'){st.done('view',ev.ok?'فحص الصورة':'تعذّر عليه رؤية الصورة بوضوح',!ev.ok)}
 else if(ev.t==='src'){sr=ev.v||[]}
-else if(ev.t==='phase'){if(ev.done)st.done(ev.k,ev.v,ev.bad);else st.step(ev.k,ev.v);if(ev.name)BN=ev.name}
+else if(ev.t==='credits'){credits(ev)}else if(ev.t==='phase'){if(ev.done)st.done(ev.k,ev.v,ev.bad);else st.step(ev.k,ev.v);if(ev.name)BN=ev.name}
 else if(ev.t==='think'){if(!st.has('deep'))st.step('deep','يفكر بعمق قبل كتابة الكود');if(ev.end)st.done('deep','فكّر بعمق ('+ev.n+' حرف من التفكير)');else st.upd('deep','يفكر بعمق... ('+ev.n+' حرف)'+(ev.v?' «'+String(ev.v).replace(/\s+/g,' ').slice(-60)+'»':''))}
 else if(ev.t==='needs'){if(Array.isArray(ev.v))BNE=ev.v.slice(0,8)}
 else if(ev.t==='asset'){if(ev.name&&ev.data)BA.push({name:ev.name,data:ev.data})}

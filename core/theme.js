@@ -1,4 +1,4 @@
-(function(){var h=document.documentElement,t=localStorage.getItem('coolai_theme');if(t!=='github'&&t!=='vscode')t='github';h.setAttribute('data-theme',t);try{if(localStorage.getItem('coolai_max')==='1')h.setAttribute('data-max','')}catch(e){}
+(function(){var h=document.documentElement,t=localStorage.getItem('coolai_theme');if(t!=='github'&&t!=='vscode')t='github';h.setAttribute('data-theme',t);try{var md=localStorage.getItem('coolai_mode');if(/\/main\/main\.html$/.test(location.pathname)&&localStorage.getItem('coolai_max')==='1'&&(md==='max'||md==='build'))h.setAttribute('data-max','');else h.removeAttribute('data-max')}catch(e){}
 try{var l=localStorage.getItem('coolai_lang')||'ar';if(/^[a-z]{2}(-[A-Z]{2})?$/.test(l)&&l!=='ar'){h.setAttribute('dir',/^(ur|fa)$/.test(l)?'rtl':'ltr');h.setAttribute('lang',l==='zh-CN'?'zh':l);h.setAttribute('data-lang',l)}}catch(e){}
 var d=document,no=function(e){e.preventDefault()};
 d.addEventListener('gesturestart',no,{passive:false});d.addEventListener('gesturechange',no,{passive:false});d.addEventListener('gestureend',no,{passive:false});

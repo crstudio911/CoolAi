@@ -1,5 +1,5 @@
 .dlg:has(.dlg-in.wide){width:min(94vw,620px)}
-#tree,#rev{position:relative}
+#tree,#rev,#todo{position:relative}
 .tbad{position:absolute;top:-3px;inset-inline-end:-3px;min-width:16px;height:16px;padding:0 4px;border-radius:99px;background:var(--brand);color:var(--bg);font:700 .62rem/16px 'IBM Plex Sans Arabic',sans-serif;font-style:normal;text-align:center}
 .tbad:empty,.tbad[hidden]{display:none}
 #rev .tbad{background:var(--gold)}
@@ -65,3 +65,22 @@ mark.cdoubt{background:none;color:inherit;text-decoration:underline wavy var(--g
 .mnote{margin-top:.5rem;padding:.45rem .7rem;border-radius:8px;border:1px solid var(--gold);background:color-mix(in srgb,var(--gold) 8%,var(--bg));font-size:.8rem;line-height:1.6;display:flex;flex-direction:column;gap:.1rem}
 .mnote b{color:var(--gold);font-size:.76rem}
 #mistc .pgo{background:none;color:var(--danger);border-color:var(--danger)}
+.tunef{display:flex;flex-direction:column;gap:6px;margin:0 0 12px}
+.tunef select,.tunef textarea{width:100%;padding:8px 10px;border-radius:10px;border:1px solid var(--line,#8884);background:var(--bg2,transparent);color:inherit;font:inherit;resize:vertical}
+.tunec{display:flex;align-items:center;gap:8px;margin:0 0 10px;cursor:pointer}
+.tadd{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+.tadd input{flex:1 1 160px;min-width:0;padding:8px 10px;border-radius:10px;border:1px solid var(--line,#8884);background:transparent;color:inherit;font:inherit}
+.tlist{list-style:none;margin:0 0 12px;padding:0;max-height:50vh;overflow:auto}
+.titem{display:flex;align-items:center;gap:10px;padding:8px 4px;border-bottom:1px solid var(--line,#8883)}
+.titem .tt{flex:1;min-width:0;overflow-wrap:anywhere}
+.titem.done .tt{text-decoration:line-through;opacity:.6}
+.titem.high .tt{font-weight:600}
+.titem small{opacity:.7;font-size:12px;white-space:nowrap}
+.titem small.late{color:var(--danger,#d33);opacity:1}
+.tdel{background:none;border:0;color:inherit;opacity:.6;cursor:pointer;font:inherit;font-size:12px}
+.tnone{opacity:.7;padding:8px 0}
+.tnote .lnk{background:none;border:0;padding:0;color:var(--accent,inherit);text-decoration:underline;cursor:pointer;font:inherit}
+.dlg-in .titem input[type=checkbox],.dlg-in .tunec input[type=checkbox]{width:18px;height:18px;flex:0 0 18px;padding:0;margin:0;accent-color:var(--brand)}
+.dlg-in .tadd input{width:auto}
+.dlg-in .tadd .btn{flex:0 0 auto}
+@media(max-width:420px){.bar .row{gap:4px}.bar .icon-btn{width:32px;height:32px}}

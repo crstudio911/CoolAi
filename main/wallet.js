@@ -18,13 +18,13 @@ $('wpic').onclick=function(){(navigator.clipboard?navigator.clipboard.writeText.
 $('wpb').onclick=function(){go(0)};
 $('cp').onclick=function(){(navigator.clipboard?navigator.clipboard.writeText.bind(navigator.clipboard):function(){})(location.origin+location.pathname.replace('main/main.html','log/login.html')+'?ref='+usr().inviteCode);$('cp').textContent='تم نسخ رابط الدعوة'};
 function mkInv(i,u){var T=INV.t,d=i.date||INV.date(i.ts),cur=' '+T('cur');
-if(i.type==='pro'){var pr=[[T('no'),i.invoiceId],[T('date'),d],[T('name'),u.name],[T('email'),u.email],[T('type'),T('proSub')],[T('duration'),T('month')],[T('total'),i.total+cur]];return{id:i.invoiceId,title:T('proTitle'),rows:pr,notes:[T('proNote')],status:i.status||'pending',sum:T('proSub')+' · '+i.total+cur,pro:1}}
+if(i.type==='pro'||i.type==='max'){var MX=i.type==='max',PS=MX?T('proSub').replace('Pro','Max'):T('proSub');var pr=[[T('no'),i.invoiceId],[T('date'),d],[T('name'),u.name],[T('email'),u.email],[T('type'),PS],[T('duration'),T('month')],[T('total'),i.total+cur]];return{id:i.invoiceId,title:MX?T('proTitle').replace('Pro','Max'):T('proTitle'),rows:pr,notes:[MX?T('proNote').replace(/Pro/g,'Max'):T('proNote')],status:i.status||'pending',sum:PS+' · '+i.total+cur,pro:1,max:MX?1:0}}
 var rows=[[T('no'),i.invoiceId],[T('date'),d],[T('name'),u.name],[T('email'),u.email],[T('coins'),i.coins],[T('coinPrice'),(i.price||price)+cur]];
 if(i.discount)rows.push([T('code')+' ('+i.code+')','- '+i.discount+cur]);rows.push([T('total'),i.total+cur]);return{id:i.invoiceId,title:T('title'),rows:rows,notes:[T('policy')],status:i.status||'pending',sum:i.coins+' Coins · '+i.total+cur}}
 function text(v){return [v.title,INV.t('status')+': '+INV.t(v.status)].concat(v.rows.map(function(r){return r[0]+': '+r[1]}),v.notes).join('\n')}
 function show(v){last=v;var b=$('wirows');b.textContent='';b.classList.add('notranslate');b.dir=INV.rtl()?'rtl':'ltr';v.rows.forEach(function(r){var e=mk('div','invrow');e.appendChild(mk('span',0,r[0]));e.appendChild(mk('b',0,r[1]));b.appendChild(e)});$('wipol').textContent=v.notes.join(' ');$('wipol').classList.add('notranslate');
 $('wiwa').href='https://wa.me/'+C.SUPPORT_WA+'?text='+encodeURIComponent(text(v)+'\n\n'+INV.t('attach'));go(2)}
-function png(v){INV.png(v,{support:C.SUPPORT_TEXT,accent:v.pro?'#d29922':'#4b5dff'})}
+function png(v){INV.png(v,{support:C.SUPPORT_TEXT,accent:v.max?'#111111':v.pro?'#d29922':'#4b5dff'})}
 function drawHis(){var l=$('wih');l.textContent='';$('w-his').hidden=!hist.length;hist.forEach(function(v){var r=mk('div','hrow'),a=mk('div'),z=mk('div','row'),b=mk('button','btn','تحميل'),g=mk('span','badge '+v.status,INV.t(v.status));a.appendChild(mk('b',0,v.id));a.appendChild(mk('small',0,v.sum));a.appendChild(mk('small',0,v.rows[1][1]));b.onclick=function(){png(v)};z.appendChild(g);z.appendChild(b);r.appendChild(a);r.appendChild(z);l.appendChild(r)})}
 function loadInv(){return api('invoices').then(function(r){if(r.invoices){hist=r.invoices.map(function(i){return mkInv(i,usr())});drawHis()}})}
 var lastR=0;

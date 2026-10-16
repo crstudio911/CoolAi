@@ -89,3 +89,32 @@ img,video,canvas,svg{max-width:100%}
 .cut-note{margin-top:.6rem;padding:.45rem .7rem;border-radius:10px;border:1px dashed var(--border);color:var(--muted);font-size:.85rem;white-space:normal}
 @media(max-width:760px){input,textarea,select{font-size:16px!important}button,a{-webkit-tap-highlight-color:transparent}}
 @supports(padding:max(0px)){body{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}}
+/* CoolAi Max: black and white luxury theme */
+html[data-max]{--bg:#000;--surface:#0b0b0b;--surface2:#151515;--border:#2b2b2b;--text:#fafafa;--muted:#9a9a9a;--brand:#f5f5f5;--brand-h:#fff;--accent:#d9d9d9;--cyan:#e6e6e6;--gold:#fff;--grad:linear-gradient(135deg,#fff,#bdbdbd);--glow:0 0 0 1px #ffffff22,0 8px 30px -10px #ffffff40}
+html[data-max] body{background:radial-gradient(1200px 500px at 50% -200px,#1c1c1c,#000 70%) fixed}
+html[data-max] .btn.primary,html[data-max] .btn.primary:hover,html[data-max] .send,html[data-max] .icon-btn.on,html[data-max] .avatar{color:#000}
+html[data-max] .send:hover{background:#fff;color:#000}
+html[data-max] ::selection{background:#fff;color:#000}
+html[data-max] .mode.build{background:linear-gradient(135deg,#fff,#7a7a7a);color:#000}
+html.maxin body{animation:maxin 1.2s ease}
+@keyframes maxin{0%{filter:invert(1) brightness(2)}35%{filter:invert(0) brightness(1.6)}100%{filter:none}}
+.mode.max{color:#000;background:linear-gradient(135deg,#fff,#a8a8a8);border-color:#fff;box-shadow:0 0 18px -4px #ffffffaa;letter-spacing:2px}
+.maxbadge{display:inline-block;padding:.05rem .6rem;border-radius:6px;background:linear-gradient(135deg,#fff,#a8a8a8);color:#000;font:800 .9em/1.4 'JetBrains Mono',monospace;letter-spacing:3px}
+@media (prefers-reduced-motion:reduce){html.maxin body{animation:none}}
+/* Max luxury polish */
+html[data-max] body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+html[data-max] .card{background:linear-gradient(180deg,#111,#070707);border:1px solid #262626;box-shadow:inset 0 1px 0 #ffffff14,0 20px 50px -30px #000}
+html[data-max] .bar{background:#000c;backdrop-filter:blur(14px);border-bottom-color:#1f1f1f}
+html[data-max] .composer{background:#0a0a0a;border-color:#333;box-shadow:0 0 0 1px #ffffff0a,0 18px 50px -25px #ffffff30}
+html[data-max] .composer:focus-within{border-color:#8a8a8a;box-shadow:0 0 0 1px #ffffff30,0 18px 60px -20px #ffffff45}
+html[data-max] h1,html[data-max] h2{background:linear-gradient(180deg,#fff 30%,#9c9c9c);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:.3px}
+html[data-max] .btn{border-color:#333}html[data-max] .btn:hover{border-color:#fff}
+html[data-max] .btn.primary{background:linear-gradient(135deg,#fff,#cfcfcf 55%,#fff);background-size:200% 100%;animation:maxshine 4s linear infinite;box-shadow:0 10px 30px -12px #ffffff70}
+html[data-max] .maxbadge{background:linear-gradient(110deg,#fff 35%,#8d8d8d 50%,#fff 65%);background-size:250% 100%;animation:maxshine 3s linear infinite}
+html[data-max] .mode.max{background:linear-gradient(110deg,#fff 35%,#9a9a9a 50%,#fff 65%);background-size:250% 100%;animation:maxshine 3s linear infinite}
+@keyframes maxshine{0%{background-position:100% 0}100%{background-position:-100% 0}}
+html[data-max] .price b{background:linear-gradient(180deg,#fff,#8f8f8f);-webkit-background-clip:text;background-clip:text;color:transparent}
+html[data-max] .feat li:before{background:#fff;box-shadow:0 0 0 3px #ffffff22,0 0 12px #ffffff80}
+html[data-max] ::-webkit-scrollbar-thumb{background:#333}
+@media (prefers-reduced-motion:reduce){html[data-max] .btn.primary,html[data-max] .maxbadge,html[data-max] .mode.max{animation:none}}
+html[data-max] img[src*="logo"],html[data-max] img[src*="fav"],html[data-max] .logo,html[data-max] .brand img{filter:grayscale(1) contrast(1.2) brightness(1.5)}
